@@ -6,10 +6,12 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const LoginScreen = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const { login } = useContext(AuthContext);
 
   return (
@@ -21,14 +23,28 @@ const LoginScreen = () => {
         </View>
         <View style={styles.itemContainer}>
           <Text style={styles.text}>Username</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            name="username"
+            onChangeText={(text) => setUsername(text)}
+            value={username}
+            style={styles.input}
+          />
         </View>
         <View style={styles.itemContainer}>
           <Text style={styles.text}>Password</Text>
-          <TextInput style={styles.input} />
+          <TextInput
+            name="password"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            secureTextEntry={true}
+            style={styles.input}
+          />
         </View>
-        <TouchableOpacity onPress={() => login("test", "test123!")} style={styles.button}>
-            <Text style={{color: '#fff'}}>Sign in</Text>
+        <TouchableOpacity
+          onPress={() => login(username, password)}
+          style={styles.button}
+        >
+          <Text style={{ color: "white" }}>Sign in</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -39,17 +55,14 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     width: "100%",
-    // borderWidth: 3,
     alignItems: "center",
-    // justifyContent: "center",
   },
   login: {
     height: "50%",
     width: "90%",
-    // borderWidth: 3,
     justifyContent: "space-around",
     alignItems: "center",
-    marginTop: 60
+    marginTop: 60,
   },
   title: {
     fontSize: "30",
@@ -66,17 +79,17 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     marginTop: 10,
-    textAlign: 'center',
-    fontSize: '20',
-    borderRadius: "5"
+    textAlign: "center",
+    fontSize: "20",
+    borderRadius: "5",
   },
   button: {
     backgroundColor: "#000",
     width: "60%",
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     height: 40,
-    borderRadius: 20
+    borderRadius: 20,
   },
 });
 

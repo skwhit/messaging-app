@@ -7,9 +7,7 @@ import { AuthProvider } from "./context/AuthContext";
 import AppNav from "./navigation/AppNav";
 
 function App() {
-  // useEffect(()=>{
-  //   getMessages();
-  // },[])
+ 
 
   return (
     <AuthProvider>

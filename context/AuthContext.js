@@ -1,10 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
+import { BASE_URL } from "../utils/config";
 
-//Dependency
+//Dependencies
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-
-const BASE_URL = "https://messaging-test.bixly.com";
 
 export const AuthContext = createContext();
 
@@ -15,26 +14,18 @@ export const AuthProvider = ({ children }) => {
   const login = (username, password) => {
     setIsLoading(true);
     axios
-      .post(`${BASE_URL}`, {
-        "username": username,
-        "password": password
+      .post(`${BASE_URL}/api-token-auth/`, {
+        username: username,
+        password: password,
       })
-      .then(res => {
-        console.log(res)
+      .then((res) => {
+        console.log(res);
+        setUserToken(res.data.token);
+        AsyncStorage.setItem("userToken", res.data.token);
       })
       .catch((e) => {
         console.log(e);
       });
-    //   fetch(`${BASE_URL}/api-token-auth/`, {
-        //   "username": username,
-        //   "password": password
-        // })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     console.log(data);
-        //   })
-    // setUserToken("kdjkfj");
-    // AsyncStorage.setItem("userToken", "kdjkfj");
     setIsLoading(false);
   };
 
@@ -49,7 +40,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setIsLoading(true);
       let userToken = await AsyncStorage.getItem("userToken");
-      setUserToken("userToken");
+      setUserToken(userToken);
       setIsLoading(false);
     } catch (err) {
       console.log("isLoggedIn error", err);

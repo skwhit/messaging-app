@@ -14,7 +14,7 @@ const AppNav = () => {
 
   if (isLoading) {
     return (
-      <View style={{backgroundColor: "#000", borderWidth: 3}}>
+      <View style={{flex: 1}}>
         <ActivityIndicator
           size={"large"}
           style={{
