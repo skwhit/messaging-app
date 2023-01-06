@@ -1,10 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { getMessages } from "./utils/messages";
 
-import { AuthProvider } from "./context/AuthContext";
-import AppNav from "./navigation/AppNav";
+import { AuthProvider } from "./src/context/AuthContext";
+import AppNav from "./src/navigation/AppNav";
 
 function App() {
  

@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { BASE_URL } from "../utils/config";
+import { BASE_URL } from "../services/config";
 
 //Dependencies
 import AsyncStorage from "@react-native-async-storage/async-storage";

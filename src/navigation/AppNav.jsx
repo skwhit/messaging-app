@@ -7,14 +7,13 @@ import AppStack from "./AppStack";
 
 //Need to install depencies for the following imports
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const AppNav = () => {
   const { isLoading, userToken } = useContext(AuthContext);
 
   if (isLoading) {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <ActivityIndicator
           size={"large"}
           style={{
