@@ -5,7 +5,7 @@ const MessageList = ({messages}) => {
   
 
   return (
-    <View>
+    <View style={{borderWidth: 3, width: "95%"}} >
       <FlatList
         data={messages}
         renderItem={({ item }) => <Message data={item} />}

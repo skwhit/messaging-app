@@ -1,6 +1,7 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+
 
 const Navbar = () => {
   const {logout} = useContext(AuthContext);

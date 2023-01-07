@@ -14,15 +14,9 @@ const Inbox = () => {
   }, []);
 
   return (
-    <SafeAreaView
-      style={{
-        justifyContent: "space-between",
-        alignItems: "center",
-        flex: 1,
-      }}
-    >
+    <>
     <MessageList messages={messages}/>
-    </SafeAreaView>
+    </>
   )
 }
 
