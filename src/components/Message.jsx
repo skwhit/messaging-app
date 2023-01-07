@@ -1,19 +1,44 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { formatTimestamp } from "../utils/functions";
+import { formatMessage } from "../utils/functions";
 
-const Message = ({ data }) => {
+const Message = ({ data, parent }) => {
   const { body, id, read, receiver, sender, sent, title } = data;
+  //conditional rendering for sender/receiver
+
+  const date = formatTimestamp(sent);
 
   return (
-    <View>
-      <View>
-        <Text>{sender}</Text>
-        <Text>{sent}</Text>
+    <TouchableOpacity style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>
+          {parent === "inbox" ? `From: ${sender}` : `To: ${receiver}`}
+        </Text>
+        <Text>{date}</Text>
       </View>
-      <Text>{title}</Text>
-      <Text>{body}</Text>
-    </View>
+      <Text style={styles.text}>Subject: {title}</Text>
+      <Text style={styles.text}>{formatMessage(body)}</Text>
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    borderBottomWidth: 1,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  header: {
+    fontSize: 23,
+    fontWeight: "bold",
+  },
+  text: {
+    marginTop: 5,
+    fontSize: 18,
+  }
+});
 
 export default Message;

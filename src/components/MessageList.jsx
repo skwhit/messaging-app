@@ -1,16 +1,17 @@
 import { View, Text, FlatList } from "react-native";
 import Message from "./Message";
 
-const MessageList = ({messages}) => {
-  
+const MessageList = ({messages, parent}) => {
+   
 
   return (
-    <View style={{borderWidth: 3, width: "95%"}} >
+    <View>
       <FlatList
         data={messages}
-        renderItem={({ item }) => <Message data={item} />}
+        renderItem={({ item }) => <Message data={item} parent={parent}/>}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        style={{minHeight: "100%"}}
       />
     </View>
   );

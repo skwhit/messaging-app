@@ -6,7 +6,7 @@ import AppNav from "./src/navigation/AppNav";
 function App() {
   return (
     <>
-      <StatusBar />
+    <StatusBar />
       <AuthProvider>
         <AppNav />
       </AuthProvider>

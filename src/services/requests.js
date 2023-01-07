@@ -10,7 +10,7 @@ export function getInboxMessages(token, setMessages) {
     })
     .then((res) => {
       console.log(res);
-      setMessages(res.data);
+      setMessages(res.data.reverse());
     })
     .catch((e) => {
       console.log(e);
@@ -26,7 +26,7 @@ export function getSentMessages(token, setMessages) {
     })
     .then((res) => {
       console.log(res);
-      setMessages(res.data);
+      setMessages(res.data.reverse());
     })
     .catch((e) => {
       console.log(e);
@@ -43,8 +43,6 @@ export function createMessage(token, title, body, receiver  ) {
       {
         headers: {
           Authorization: `Token ${token}`,
-          // "Content-Type": "application/json",
-          // Accept: "application/json",
         },
       }
     )
@@ -53,31 +51,7 @@ export function createMessage(token, title, body, receiver  ) {
     })
     .catch((e) => {
       console.log(e);
-      alert("User not found. Please input a new user")
+      alert("Recipient not found. Please input another.")
     });
 }
-
-// export function createMessage(token) {
-//   fetch(
-//       `${BASE_URL}/messages/`,
-//       {
-//         method: "POST",
-//         headers: {
-//           Authorization: `Token ${token}`,
-//           "Content-Type": "application/json; charset=UTF-8",
-//           Accept: "application/json",
-//         },
-//         body: {
-//           title: "test", body: "hello", receiver: "tomk"
-//         }
-//     }
-//     )
-//     .then((res)=>res.json())
-//     .then((data) => {
-//       console.log(data);
-//     })
-//     .catch((e) => {
-//       console.log(e);
-//     });
-// }
 

@@ -15,7 +15,7 @@ const Inbox = () => {
 
   return (
     <>
-    <MessageList messages={messages}/>
+    <MessageList messages={messages} parent="inbox"/>
     </>
   )
 }

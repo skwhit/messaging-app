@@ -21,7 +21,7 @@ const Sent = () => {
           flex: 1,
         }}
       >
-      <MessageList messages={messages}/>
+      <MessageList messages={messages} parent="sent"/>
       </SafeAreaView>
     )
 }
