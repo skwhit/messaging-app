@@ -9,7 +9,7 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Inbox, Compose, Sent } from "../screens";
+import { Inbox, Compose, Sent, Details } from "../screens";
 import { Navbar } from "../components";
 
 const Stack = createNativeStackNavigator();
@@ -24,9 +24,10 @@ const AppStack = () => {
           initialRouteName="Inbox"
           
         >
-          <Stack.Screen style={{backgroundColor: 'white'}} name="Inbox" component={Inbox} />
+          <Stack.Screen  name="Inbox" component={Inbox} />
           <Stack.Screen name="Sent" component={Sent} />
-          <Stack.Screen style={{backgroundColor: 'white'}} name="Compose" component={Compose} />
+          <Stack.Screen  name="Compose" component={Compose} />
+          <Stack.Screen  name="Details" component={Details} />
         </Stack.Navigator>
         {/* <TouchableOpacity style={{ width: 50, height: 50, position: "absolute", top: 42, right: 0, bottom: 0, left: 10, zIndex: 1 }}>
         <Image source={hamburger} style={{ width: 50, height: 50 }} />

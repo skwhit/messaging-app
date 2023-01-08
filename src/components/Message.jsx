@@ -1,15 +1,16 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { formatTimestamp } from "../utils/functions";
 import { formatMessage } from "../utils/functions";
+import { useNavigation } from "@react-navigation/native";
 
 const Message = ({ data, parent }) => {
   const { body, id, read, receiver, sender, sent, title } = data;
-  //conditional rendering for sender/receiver
+  const navigation = useNavigation();
 
   const date = formatTimestamp(sent);
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity onPress={() => navigation.navigate("Details")} style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>
           {parent === "inbox" ? `From: ${sender}` : `To: ${receiver}`}
@@ -25,7 +26,7 @@ const Message = ({ data, parent }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    borderBottomWidth: 1,
+    borderTopWidth: 1,
   },
   headerContainer: {
     flexDirection: "row",

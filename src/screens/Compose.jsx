@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderBottomWidth: 1,
+    borderTopWidth: 1,
     height: 50,
     paddingHorizontal: 10,
   },
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 9,
     padding: 8,
+    borderTopWidth: 1,
   },
   sendButton: {
     justifyContent: "center",
