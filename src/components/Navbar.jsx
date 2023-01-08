@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   text: {
     color: 'white'
   },
-  navIcon: {width: '45%', height: 40, resizeMode: 'contain'},
+  navIcon: {width: '40%', height: 40, resizeMode: 'stretch'},
 });
 
 export default Navbar;

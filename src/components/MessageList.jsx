@@ -5,7 +5,7 @@ const MessageList = ({messages, parent}) => {
    
 
   return (
-    <View>
+    <View style={{backgroundColor: "white", paddingBottom: 40}}>
       <FlatList
         data={messages}
         renderItem={({ item }) => <Message data={item} parent={parent}/>}

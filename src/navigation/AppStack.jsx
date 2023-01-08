@@ -18,20 +18,21 @@ const AppStack = () => {
   const { logout } = useContext(AuthContext);
 
   return (
-    <>
-      <SafeAreaView style={{ flex: 1 }}>
-        <Stack.Navigator initialRouteName="Inbox">
-          <Stack.Screen name="Inbox" component={Inbox} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white'}}>
+        <Stack.Navigator
+          screenOptions={{ headerShown: false }}
+          initialRouteName="Inbox"
+          
+        >
+          <Stack.Screen style={{backgroundColor: 'white'}} name="Inbox" component={Inbox} />
           <Stack.Screen name="Sent" component={Sent} />
-          <Stack.Screen name="Compose" component={Compose} />
+          <Stack.Screen style={{backgroundColor: 'white'}} name="Compose" component={Compose} />
         </Stack.Navigator>
         {/* <TouchableOpacity style={{ width: 50, height: 50, position: "absolute", top: 42, right: 0, bottom: 0, left: 10, zIndex: 1 }}>
         <Image source={hamburger} style={{ width: 50, height: 50 }} />
       </TouchableOpacity> */}
-
-        <Navbar />
-      </SafeAreaView>
-    </>
+      <Navbar />
+    </SafeAreaView>
   );
 };
 
