@@ -15,7 +15,7 @@ const Sent = ({ name }) => {
   return (
     <>
       <ScreenHeader title={"Sent"} />
-      <MessageList messages={messages} parent="sent" />
+      <MessageList messages={messages} parent="Sent" />
     </>
   );
 };

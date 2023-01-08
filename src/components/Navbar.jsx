@@ -30,7 +30,7 @@ const Navbar = () => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Compose");
+          navigation.navigate("Compose", {to: ""});
         }}
         style={styles.linkContainer}
       >

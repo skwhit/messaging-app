@@ -16,7 +16,7 @@ const Inbox = ({name}) => {
   return (
     <>
     <ScreenHeader title={"Inbox"}/>
-    <MessageList messages={messages} parent="inbox"/>
+    <MessageList messages={messages} parent="Inbox"/>
     </>
   )
 }

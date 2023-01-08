@@ -9,7 +9,7 @@ export function getInboxMessages(token, setMessages) {
       },
     })
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
       setMessages(res.data.reverse());
     })
     .catch((e) => {
@@ -25,7 +25,7 @@ export function getSentMessages(token, setMessages) {
       },
     })
     .then((res) => {
-      console.log(res);
+      console.log(res.data);
       setMessages(res.data.reverse());
     })
     .catch((e) => {
@@ -55,3 +55,33 @@ export function createMessage(token, title, body, receiver  ) {
     });
 }
 
+export function getMessageDetail(token, id, setDetails) {
+  axios
+    .get(`${BASE_URL}/messages/${id}/`, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      setDetails(res.data);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+}
+
+export function deleteMessage(token, id) {
+  axios
+    .delete(`${BASE_URL}/messages/${id}/`, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+}
