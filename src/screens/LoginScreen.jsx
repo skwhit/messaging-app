@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   title: {
-    fontSize: "30",
+    fontSize: 30,
   },
   text: {
     color: "#000",
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 10,
     textAlign: "center",
-    fontSize: "20",
-    borderRadius: "5",
+    fontSize: 20,
+    borderRadius: 5,
   },
   button: {
     backgroundColor: "#000",

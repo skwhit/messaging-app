@@ -17,10 +17,11 @@ import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import { ScreenHeader } from "../components";
 import { sendIcon } from "../../assets";
 
-const Compose = ({ name }) => {
+const Compose = ({ route }) => {
   const { userToken } = useContext(AuthContext);
+  const { to } = route.params;
   const [title, setTitle] = useState("");
-  const [recipient, setRecipient] = useState("");
+  const [recipient, setRecipient] = useState(to.length ? to : "");
   const [body, setBody] = useState("");
 
   useEffect(() => {
@@ -60,7 +61,6 @@ const Compose = ({ name }) => {
           />
         </View>
       </ScrollView>
-      
     </>
   );
 };
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     maxHeight: "100%",
-    paddingBottom: 40
+    paddingBottom: 40,
   },
   inputContainer: {
     flexDirection: "row",
@@ -80,15 +80,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   text: {
-    fontSize: "20",
+    fontSize: 20,
   },
   input: {
-    fontSize: "20",
+    fontSize: 20,
     paddingVertical: 9,
     width: "100%",
   },
   messageInput: {
-    fontSize: "20",
+    fontSize: 20,
     paddingHorizontal: 10,
     paddingVertical: 9,
     padding: 8,

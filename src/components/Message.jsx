@@ -10,10 +10,13 @@ const Message = ({ data, parent }) => {
   const date = formatTimestamp(sent);
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("Details")} style={styles.container}>
+    <TouchableOpacity
+      onPress={() => navigation.push("Details", { id: id, parent: parent })}
+      style={styles.container}
+    >
       <View style={styles.headerContainer}>
         <Text style={styles.header}>
-          {parent === "inbox" ? `From: ${sender}` : `To: ${receiver}`}
+          {parent === "Inbox" ? `From: ${sender}` : `To: ${receiver}`}
         </Text>
         <Text>{date}</Text>
       </View>
@@ -39,7 +42,7 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 5,
     fontSize: 18,
-  }
+  },
 });
 
 export default Message;
