@@ -14,14 +14,14 @@ const AppNav = () => {
   if (isLoading) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <ActivityIndicator
+        {/* <ActivityIndicator
           size={"large"}
           style={{
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
           }}
-        />
+        /> */}
       </SafeAreaView>
     );
   }
