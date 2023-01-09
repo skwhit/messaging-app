@@ -4,6 +4,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -14,14 +15,14 @@ const Details = ({ route, navigation }) => {
   const { id, parent } = route.params;
   const { userToken } = useContext(AuthContext);
   const [details, setDetails] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getMessageDetail(userToken, id, setDetails);
+    getMessageDetail(userToken, id, setDetails, setIsLoading);
   }, []);
 
   const { body, receiver, sender, sent, title } = details;
   const inbox = parent == "Inbox" ? true : false;
-
 
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
@@ -35,7 +36,7 @@ const Details = ({ route, navigation }) => {
               onPress={() => navigation.goBack()}
               style={styles.closeButton}
             >
-              <Text style={styles.buttonText}>Back</Text>
+              <Text style={styles.closeButtonText}>X</Text>
             </TouchableOpacity>
           </View>
           <Text style={styles.text}>{`Date: ${formatTimestamp(sent)}`}</Text>
@@ -57,9 +58,17 @@ const Details = ({ route, navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              deleteMessage(userToken, id);
-              alert("Message has been deleted.");
-              navigation.navigate(parent)
+              Alert.alert("Are you sure you want to delete this message?", "", [
+                {
+                  text: "Yes",
+                  onPress: () => {
+                    deleteMessage(userToken, id, navigation);
+                  },
+                },
+                {
+                  text: "No",
+                },
+              ]);
             }}
             style={styles.deleteButton}
           >
@@ -80,10 +89,14 @@ const styles = StyleSheet.create({
   closeButton: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#00B6F1",
+    // backgroundColor: "#F5F5F4",
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
+  },
+  closeButtonText: {
+    fontSize: 20,
+    fontWeight: 'bold'
   },
   headerContainer: {
     borderBottomWidth: 1,
@@ -104,9 +117,6 @@ const styles = StyleSheet.create({
     fontSize: 23,
     paddingHorizontal: 20,
   },
-  buttonText: {
-    fontSize: 20,
-  },
   buttonContainer: {
     marginTop: 40,
     width: "100%",
@@ -115,7 +125,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 100,
   },
   replyButton: {
-    backgroundColor: "#70B8A6",
+    backgroundColor: "#00B6F1",
     borderRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 10,
@@ -124,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   deleteButton: {
-    backgroundColor: "#610F23",
+    backgroundColor: "grey",
     borderRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 10,

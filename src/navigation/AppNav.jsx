@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator, SafeAreaView } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
 import AuthStack from "./AuthStack";
@@ -13,7 +13,7 @@ const AppNav = () => {
 
   if (isLoading) {
     return (
-      <View style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <ActivityIndicator
           size={"large"}
           style={{
@@ -22,7 +22,7 @@ const AppNav = () => {
             alignItems: "center",
           }}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 

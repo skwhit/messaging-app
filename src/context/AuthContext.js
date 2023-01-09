@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
       })
       .catch((e) => {
         console.log(e);
+        alert("Username or password is invalid. Please try again.")
       });
     setIsLoading(false);
   };

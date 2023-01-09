@@ -10,9 +10,9 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const LoginScreen = () => {
+  const { login } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useContext(AuthContext);
 
   return (
     <SafeAreaView style={styles.container}>

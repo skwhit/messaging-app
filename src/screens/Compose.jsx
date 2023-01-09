@@ -23,10 +23,11 @@ const Compose = ({ route }) => {
   const [title, setTitle] = useState("");
   const [recipient, setRecipient] = useState(to.length ? to : "");
   const [body, setBody] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    createMessage(userToken);
-  }, []);
+  // useEffect(() => {
+  //   createMessage(userToken);
+  // }, []);
 
   return (
     <>

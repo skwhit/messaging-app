@@ -1,7 +1,8 @@
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList, RefreshControl } from "react-native";
 import Message from "./Message";
+import Loading from "./Loading";
 
-const MessageList = ({messages, parent}) => {
+const MessageList = ({messages, parent, setIsLoading}) => {
    
 
   return (
@@ -12,6 +13,9 @@ const MessageList = ({messages, parent}) => {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         style={{minHeight: "100%"}}
+        // refreshControl={
+        //   <RefreshControl refreshing={<Loading/>} onRefresh={setIsLoading(true)} />
+        // }
       />
     </View>
   );
