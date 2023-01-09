@@ -25,7 +25,7 @@ const Details = ({ route, navigation }) => {
   const inbox = parent == "Inbox" ? true : false;
 
   return (
-    <ScrollView style={{ backgroundColor: "white" }}>
+    <ScrollView style={{ backgroundColor: "#FFFFFF" }}>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <View style={styles.topHeader}>
@@ -53,7 +53,7 @@ const Details = ({ route, navigation }) => {
             style={styles.replyButton}
           >
             <Text style={styles.buttonText}>
-              {inbox ? `Reply` : `Message Again`}
+              {inbox ? "Reply" : "Message Again"}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -89,14 +89,13 @@ const styles = StyleSheet.create({
   closeButton: {
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "#F5F5F4",
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
   closeButtonText: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   headerContainer: {
     borderBottomWidth: 1,
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   deleteButton: {
-    backgroundColor: "grey",
+    backgroundColor: "#808080",
     borderRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 10,
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    color: "white",
+    color: "#FFFFFF",
   },
 });
 

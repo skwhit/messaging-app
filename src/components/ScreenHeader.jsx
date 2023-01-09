@@ -6,7 +6,7 @@ const ScreenHeader = ({ title }) => {
       onPress={Keyboard.dismiss}
       style={{
         alignItems: "center",
-        backgroundColor: "white",
+        backgroundColor: "#FFFFFF",
         paddingBottom: 5,
       }}
     >

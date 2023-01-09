@@ -29,7 +29,7 @@ const MessageList = ({ parent }) => {
   }, []);
 
   return (
-    <View style={{ backgroundColor: "white", paddingBottom: 40 }}>
+    <View style={{ backgroundColor: "#FFFFFF", paddingBottom: 40 }}>
       <FlatList
         data={messages}
         renderItem={({ item }) => <Message data={item} parent={parent} />}

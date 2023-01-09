@@ -29,7 +29,7 @@ const AppNav = () => {
   return (
     <NavigationContainer>
       {userToken !== null ? <AppStack /> : <AuthStack />}
-      <View style={{ backgroundColor: "black", width: "100%", height: 35 }}></View>
+      {/* <View style={{ backgroundColor: "black", width: "100%", height: 35 }}></View> */}
     </NavigationContainer>
   );
 };

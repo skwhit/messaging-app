@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 2,
     flexDirection: "row",
-    position: "fixed",
+    // position: "fixed",
     backgroundColor: "black"
   },
   linkContainer: {
@@ -65,9 +65,9 @@ const styles = StyleSheet.create({
     paddingTop: 5
   },
   text: {
-    color: 'white'
+    color: "#FFFFFF"
   },
-  navIcon: {width: '40%', height: 40, resizeMode: 'stretch'},
+  navIcon: {width: "40%", height: 40, resizeMode: "stretch"},
 });
 
 export default Navbar;

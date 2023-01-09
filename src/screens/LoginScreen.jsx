@@ -44,7 +44,7 @@ const LoginScreen = () => {
           onPress={() => login(username, password)}
           style={styles.button}
         >
-          <Text style={{ color: "white" }}>Sign in</Text>
+          <Text style={{ color: "#FFFFFF" }}>Sign in</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   text: {
-    color: "#000",
+    color: "#000000",
   },
   itemContainer: {
     width: "100%",
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   button: {
-    backgroundColor: "#000",
+    backgroundColor: "#000000",
     width: "60%",
     alignItems: "center",
     justifyContent: "center",

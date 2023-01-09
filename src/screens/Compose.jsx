@@ -81,7 +81,7 @@ const Compose = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     maxHeight: "100%",
     paddingBottom: 40,
   },
@@ -111,8 +111,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    top: -8,
-    right: 10,
     width: "20%",
     height: 60,
     borderRadius: 10,
