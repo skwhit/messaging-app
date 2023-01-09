@@ -4,7 +4,7 @@ import { formatMessage } from "../utils/functions";
 import { useNavigation } from "@react-navigation/native";
 
 const Message = ({ data, parent }) => {
-  const { body, id, read, receiver, sender, sent, title } = data;
+  const { body, id, receiver, sender, sent, title } = data;
   const navigation = useNavigation();
 
   const date = formatTimestamp(sent);

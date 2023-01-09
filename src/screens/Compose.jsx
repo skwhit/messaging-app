@@ -3,17 +3,14 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  KeyboardAvoidingView,
   ScrollView,
-  TouchableWithoutFeedback,
-  Keyboard,
   TouchableOpacity,
   Image,
+  Alert
 } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { createMessage } from "../services/requests";
-import KeyboardAvoidingWrapper from "../components/KeyboardAvoidingWrapper";
 import { ScreenHeader } from "../components";
 import { sendIcon } from "../../assets";
 
@@ -23,10 +20,7 @@ const Compose = ({ route }) => {
   const [title, setTitle] = useState("");
   const [recipient, setRecipient] = useState(to.length ? to : "");
   const [body, setBody] = useState("");
-
-  useEffect(() => {
-    createMessage(userToken);
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
@@ -50,7 +44,7 @@ const Compose = ({ route }) => {
             style={styles.input}
           />
         </View>
-        <View>
+        <ScrollView>
           <TextInput
             name="body"
             multiline={true}
@@ -59,7 +53,26 @@ const Compose = ({ route }) => {
             style={styles.messageInput}
             placeholder="Message"
           />
-        </View>
+        </ScrollView>
+        <TouchableOpacity
+          onPress={() => {
+            Alert.alert("Are you sure you want to send this message?", "", [
+              {
+                text: "Yes",
+                onPress: () => {
+                  createMessage(userToken, title, body, recipient)
+                },
+              },
+              {
+                text: "No",
+              },
+            ]);
+          }}
+          style={styles.sendButton}
+        >
+          <Text style={styles.sendText}>Send</Text>
+          <Image style={styles.sendImage} source={sendIcon} />
+        </TouchableOpacity>
       </ScrollView>
     </>
   );
@@ -89,28 +102,29 @@ const styles = StyleSheet.create({
   },
   messageInput: {
     fontSize: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 9,
     padding: 8,
     borderTopWidth: 1,
+    maxHeight: 330,
   },
   sendButton: {
+    alignSelf: "flex-end",
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    position: "absolute",
+    top: -8,
     right: 10,
     width: "20%",
     height: 60,
-    backgroundColor: "grey",
     borderRadius: 10,
   },
   sendImage: {
-    width: "50%",
-    height: 30,
+    width: 25,
+    height: 25,
     zIndex: 3,
   },
   sendText: {
-    color: "white",
+    fontSize: 17,
+    marginRight: 2,
   },
 });
 

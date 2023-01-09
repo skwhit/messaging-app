@@ -1,4 +1,4 @@
-import { View, Text, Keyboard, Image, TouchableOpacity } from "react-native";
+import { View, Text, Keyboard } from "react-native";
 
 const ScreenHeader = ({ title }) => {
   return (
