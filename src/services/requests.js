@@ -58,7 +58,7 @@ export function createMessage(token, title, body, receiver) {
     })
     .catch((e) => {
       console.log(e);
-      alert("Recipient not found. Please input another.");
+      alert("Recipient not found or missing informarion. Please try again.");
     });
 }
 
@@ -80,7 +80,7 @@ export function getMessageDetail(token, id, setDetails, setIsLoading) {
     });
 }
 
-export function deleteMessage(token, id, navigation) {
+export function deleteMessage(token, id, navigation, parent) {
   axios
     .delete(`${BASE_URL}/messages/${id}/`, {
       headers: {

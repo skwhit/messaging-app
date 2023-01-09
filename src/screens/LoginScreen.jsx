@@ -15,7 +15,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.login}>
         <View style={styles.itemContainer}>
           <Text style={styles.title}>Welcome</Text>
@@ -47,7 +47,7 @@ const LoginScreen = () => {
           <Text style={{ color: "white" }}>Sign in</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

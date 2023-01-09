@@ -62,7 +62,7 @@ const Details = ({ route, navigation }) => {
                 {
                   text: "Yes",
                   onPress: () => {
-                    deleteMessage(userToken, id, navigation);
+                    deleteMessage(userToken, id, navigation, parent);
                   },
                 },
                 {

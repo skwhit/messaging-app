@@ -1,11 +1,11 @@
-import { View, Text } from "react-native";
+import { SafeAreaView } from "react-native";
 import { LoginScreen } from "../screens";
 
 const AuthStack = () => {
   return (
-    <View>
+    <SafeAreaView style={{flex: 1}}>
       <LoginScreen />
-    </View>
+    </SafeAreaView>
   );
 };
 

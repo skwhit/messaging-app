@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, ActivityIndicator, SafeAreaView } from "react-native";
+import { View, SafeAreaView } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
 import AuthStack from "./AuthStack";
