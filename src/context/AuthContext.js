@@ -5,12 +5,14 @@ import { BASE_URL } from "../services/config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
+//Auth context and provider used to authenticate user at login and initial load.
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userToken, setUserToken] = useState(null);
 
+  //login function used to exchange login credentials for user token from the API
   const login = (username, password) => {
     setIsLoading(true);
     axios
@@ -25,11 +27,12 @@ export const AuthProvider = ({ children }) => {
       })
       .catch((e) => {
         console.log(e);
-        alert("Username or password is invalid. Please try again.")
+        alert("Username or password is invalid. Please try again.");
       });
     setIsLoading(false);
   };
 
+  //Logout function used to remove user token from state and async storage
   const logout = () => {
     setIsLoading(true);
     setUserToken(null);
@@ -37,6 +40,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(false);
   };
 
+  //isLoggedIn function used to determine if user was already logged in. Will skip login screen if so.
   const isLoggedIn = async () => {
     try {
       setIsLoading(true);
@@ -49,10 +53,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  //Calls isLoggedIn upon initial load
   useEffect(() => {
     isLoggedIn();
   }, []);
 
+  //Provides authentication functions and user token to all children. I.e. the whole application
   return (
     <AuthContext.Provider value={{ login, logout, isLoading, userToken }}>
       {children}

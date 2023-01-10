@@ -1,7 +1,7 @@
 import React from "react";
 import { View, ActivityIndicator } from "react-native";
 
-
+//loading activity indicator that will display when app is getting, posting, or deleting data.
 const Loading = () => {
   return (
     <View

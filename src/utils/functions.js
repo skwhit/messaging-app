@@ -1,3 +1,4 @@
+//formats date in mm/dd/yyyy format
 export function formatTimestamp(timestamp) {
   let dateObj = new Date(timestamp);
 
@@ -8,6 +9,7 @@ export function formatTimestamp(timestamp) {
   return `${month}/${date}/${year}`;
 }
 
+//Shortens long messages for display on inbox and sent screens
 export function formatMessage(message) {
   let formattedMessage = message;
 

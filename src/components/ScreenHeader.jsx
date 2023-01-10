@@ -2,6 +2,7 @@ import { View, Text, Keyboard } from "react-native";
 
 import { useTheme } from "../context/ThemeContext";
 
+//Screen Header component used as a title for each page
 const ScreenHeader = ({ title }) => {
   const { themes } = useTheme();
 

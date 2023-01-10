@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "./config";
 
+//Gets an array of received messages from the server
 export function getInboxMessages(token, setMessages, setIsLoading) {
   axios
     .get(`${BASE_URL}/messages/`, {
@@ -9,16 +10,16 @@ export function getInboxMessages(token, setMessages, setIsLoading) {
       },
     })
     .then((res) => {
-      console.log(res.data);
+      //reverses the messages so most current will be first. Data is then stored in state
       setMessages(res.data.reverse());
       setIsLoading(false);
     })
     .catch((e) => {
-      console.log(e);
       setIsLoading(false);
     });
 }
 
+//Gets an array of sent messages from the server
 export function getSentMessages(token, setMessages, setIsLoading) {
   axios
     .get(`${BASE_URL}/messages/sent/`, {
@@ -27,16 +28,16 @@ export function getSentMessages(token, setMessages, setIsLoading) {
       },
     })
     .then((res) => {
-      console.log(res.data);
+      //reverses the messages so most current will be first. Data is then stored in state
       setMessages(res.data.reverse());
       setIsLoading(false);
     })
     .catch((e) => {
-      console.log(e);
       setIsLoading(false);
     });
 }
 
+//Posts a message to the server and navigates user to sent screen
 export function createMessage(token, title, body, receiver, navigation) {
   axios
     .post(
@@ -53,15 +54,17 @@ export function createMessage(token, title, body, receiver, navigation) {
       }
     )
     .then((res) => {
-      console.log(res);
+      //confirmation on success
       alert("Message has been sent.");
+      navigation.navigate("Sent");
     })
     .catch((e) => {
-      console.log(e);
+      //User is notified if request is rejected due to invalid user
       alert("Recipient not found. Please try again.");
     });
 }
 
+//Request to get message detail using a specified id.
 export function getMessageDetail(token, id, setDetails, setIsLoading) {
   axios
     .get(`${BASE_URL}/messages/${id}/`, {
@@ -70,16 +73,16 @@ export function getMessageDetail(token, id, setDetails, setIsLoading) {
       },
     })
     .then((res) => {
-      console.log(res.data);
+      //Message detail stored in state for display
       setDetails(res.data);
       setIsLoading(false);
     })
     .catch((e) => {
-      console.log(e);
       setIsLoading(false);
     });
 }
 
+//Request to delete a message using a specified id
 export function deleteMessage(token, id, navigation, parent) {
   axios
     .delete(`${BASE_URL}/messages/${id}/`, {
@@ -88,12 +91,13 @@ export function deleteMessage(token, id, navigation, parent) {
       },
     })
     .then((res) => {
-      console.log(res.data);
+      //confirmation message letting user know their message has been deleted
       alert("Message has been deleted.");
+      //navigates user back to the page they came from
       navigation.reset({ index: 0, routes: [{ name: parent }] });
     })
     .catch((e) => {
-      console.log(e);
+      //Notifies user if message is unable to be deleted.
       alert(
         `Something went wrong when attempting to delete your message. Error Message: ${e}`
       );

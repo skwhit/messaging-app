@@ -6,12 +6,14 @@ import { useTheme } from "../context/ThemeContext";
 import { formatTimestamp } from "../utils/functions";
 import { formatMessage } from "../utils/functions";
 
+//Message component used as a template for inbox message and sent message
 const Message = ({ data, parent }) => {
   const { body, receiver, sender, sent, title } = data;
-  
+
   const navigation = useNavigation();
   const { themes } = useTheme();
 
+  //formats date in mm/dd/yyyy format
   const date = formatTimestamp(sent);
 
   return (
