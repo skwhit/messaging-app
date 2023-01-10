@@ -78,9 +78,11 @@ const Details = ({ route, navigation }) => {
                 style={[styles.text, { color: themes.text }]}
               >{`Subject: ${title}`}</Text>
             </View>
-            <Text
-              style={[styles.text, { color: themes.text }]}
-            >{`${body}`}</Text>
+            <View style={styles.message}>
+              <Text
+                style={[styles.text, { color: themes.text }]}
+              >{`${body}`}</Text>
+            </View>
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 onPress={() =>

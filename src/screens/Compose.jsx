@@ -60,7 +60,7 @@ const Compose = ({ route }) => {
             name="recipient"
             onChangeText={(text) => setRecipient(text)}
             value={recipient}
-            style={styles.input}
+            style={[styles.input, {color: themes.text}]}
           />
         </View>
         <View style={[styles.inputContainer, { borderColor: themes.border }]}>
@@ -69,7 +69,7 @@ const Compose = ({ route }) => {
             name="title"
             onChangeText={(text) => setTitle(text)}
             value={title}
-            style={styles.input}
+            style={[styles.input, {color: themes.text}]}
           />
         </View>
         <ScrollView>
@@ -78,15 +78,16 @@ const Compose = ({ route }) => {
             multiline={true}
             onChangeText={(text) => setBody(text)}
             value={body}
-            style={[styles.messageInput, { borderColor: themes.border }]}
+            style={[styles.messageInput, { borderColor: themes.border, color: themes.text }]}
             placeholder="Message"
             placeholderTextColor={themes.placeholder}
           />
-        </ScrollView>
+        
         <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
           <Text style={[styles.sendText, { color: themes.text }]}>Send</Text>
           <Image style={styles.sendImage} source={sendIcon} />
         </TouchableOpacity>
+        </ScrollView>
       </View>
     </SafeAreaWrapper>
   );
@@ -94,7 +95,7 @@ const Compose = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1, 
   },
   inputContainer: {
     flexDirection: "row",

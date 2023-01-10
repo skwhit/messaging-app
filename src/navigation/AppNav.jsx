@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { SafeAreaView, View, Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 import { AuthContext } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
@@ -27,6 +28,7 @@ const AppNav = () => {
   return (
     <>
       <StatusBar backgroundColor={themes.background} style={themes.statusBar}/>
+      {/* Have to create a view and get status bar height to change background color in ios */}
       {Platform.OS === "ios" ? <View style={{ backgroundColor: themes.background, height: 50, zIndex: 2, }}></View>: <></>}
       <NavigationContainer>
         {userToken !== null ? <AppStack /> : <AuthStack />}

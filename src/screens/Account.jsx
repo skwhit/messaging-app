@@ -13,11 +13,12 @@ import { AuthContext } from "../context/AuthContext";
 
 import { SafeAreaWrapper } from "../components";
 import { accountIcon } from "../../assets";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Account = () => {
   const { themes, darkmode, setDarkmode } = useTheme();
   const { logout } = useContext(AuthContext);
-  
+
   const toggleSwitch = () => setDarkmode((previousState) => !previousState);
 
   return (

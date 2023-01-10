@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Platform
+  Platform,
 } from "react-native";
 import { SafeAreaWrapper } from "../components";
 
@@ -20,49 +20,57 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <SafeAreaWrapper>
-      <View style={[styles.container, { backgroundColor: themes.background }]}>
-        <View style={styles.login}>
-          <View style={styles.itemContainer}>
-            <Text style={[styles.title, { color: themes.text }]}>Welcome</Text>
-            <Text style={[styles.text, { color: themes.text }]}>
-              Please login below
-            </Text>
+    <>
+      <SafeAreaWrapper>
+        <View
+          style={styles.container}
+        >
+          <View style={styles.login}>
+            <View style={styles.itemContainer}>
+              <Text style={styles.title}>
+                Welcome
+              </Text>
+              <Text style={styles.text}>
+                Please login below
+              </Text>
+            </View>
+            <View style={styles.itemContainer}>
+              <Text style={styles.text}>
+                Username
+              </Text>
+              <TextInput
+                name="username"
+                onChangeText={(text) => setUsername(text)}
+                value={username}
+                style={
+                  styles.input
+                }
+              />
+            </View>
+            <View style={styles.itemContainer}>
+              <Text style={styles.text}>
+                Password
+              </Text>
+              <TextInput
+                name="password"
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+                secureTextEntry={true}
+                style={
+                  styles.input}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={() => login(username, password)}
+              style={styles.button}
+            >
+              <Text style={{ color: "#FFFFFF" }}>Sign in</Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.itemContainer}>
-            <Text style={[styles.text, { color: themes.text }]}>Username</Text>
-            <TextInput
-              name="username"
-              onChangeText={(text) => setUsername(text)}
-              value={username}
-              style={[
-                styles.input,
-                { borderColor: themes.border, color: themes.text },
-              ]}
-            />
-          </View>
-          <View style={styles.itemContainer}>
-            <Text style={[styles.text, { color: themes.text }]}>Password</Text>
-            <TextInput
-              name="password"
-              onChangeText={(text) => setPassword(text)}
-              value={password}
-              secureTextEntry={true}
-              style={[
-                styles.input,
-                { borderColor: themes.border, color: themes.text },
-              ]}
-            />
-          </View>
-          <TouchableOpacity
-            onPress={() => login(username, password)}
-            style={styles.button}
-          >
-            <Text style={{ color: "#FFFFFF" }}>Sign in</Text>
-          </TouchableOpacity>
         </View>
-      </View>
-    </SafeAreaWrapper>
+      </SafeAreaWrapper>
+      
+    </>
   );
 };
 
