@@ -8,13 +8,13 @@
 
 1. Run the following command: 
 
-```
-npm start
-```
-or
-```
-npx expo start
-```
+    ```
+    npm start
+    ```
+    or
+    ```
+    npx expo start
+    ```
 
 That's it!
 
