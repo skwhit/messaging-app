@@ -8,13 +8,13 @@
 
 1. Run the following command: 
 
-```
-npm start
-```
-or
-```
-npx expo start
-```
+    ```
+    npm start
+    ```
+    or
+    ```
+    npx expo start
+    ```
 
 That's it!
 
@@ -64,7 +64,8 @@ source code is available at [https://github.com/skwhit/messaging-app/](https://g
     ```
     npm start
     ```
-or
+    or
+
     ```
     npx expo start
     ```
