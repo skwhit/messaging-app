@@ -1,18 +1,26 @@
-import { View, ActivityIndicator } from 'react-native'
-import React from 'react';
+import React from "react";
+import { View, ActivityIndicator } from "react-native";
+
 
 const Loading = () => {
   return (
-    <View style={{justifyContent: 'center', alignItems: "center", backgroundColor: 'white', padding: 10}}>
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#FFFFFF",
+        padding: 10,
+      }}
+    >
       <ActivityIndicator
-          size={"large"}
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        />
+        size={"large"}
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      />
     </View>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;

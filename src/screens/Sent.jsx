@@ -1,12 +1,12 @@
 import { MessageList, ScreenHeader } from "../components";
+import { SafeAreaWrapper } from "../components";
 
 const Sent = () => {
- 
   return (
-    <>
-      <ScreenHeader title={"Sent"} />
-      <MessageList  parent="Sent" />
-    </>
+    <SafeAreaWrapper>
+      <ScreenHeader title="Sent" />
+      <MessageList parent="Sent" />
+    </SafeAreaWrapper>
   );
 };
 

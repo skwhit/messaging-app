@@ -1,12 +1,12 @@
 import { MessageList, ScreenHeader } from "../components";
+import { SafeAreaWrapper } from "../components";
 
 const Inbox = () => {
-  
   return (
-    <>
-      <ScreenHeader title={"Inbox"} />
+    <SafeAreaWrapper>
+      <ScreenHeader title="Inbox" />
       <MessageList parent="Inbox" />
-    </>
+    </SafeAreaWrapper>
   );
 };
 

@@ -1,12 +1,16 @@
-import { View, FlatList, RefreshControl } from "react-native";
 import { useCallback, useContext, useState, useEffect } from "react";
-import Message from "./Message";
-import Loading from "./Loading";
+import { FlatList, RefreshControl, SafeAreaView } from "react-native";
+
 import { AuthContext } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import { getInboxMessages, getSentMessages } from "../services/requests";
+
+import Message from "./Message";
 
 const MessageList = ({ parent }) => {
   const { userToken } = useContext(AuthContext);
+  const { themes } = useTheme();
+  
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,30 +21,33 @@ const MessageList = ({ parent }) => {
   }, []);
 
   const wait = (timeout) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-  }
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
 
   const onRefresh = useCallback(() => {
     setIsLoading(true);
     parent === "Inbox"
       ? getInboxMessages(userToken, setMessages, setIsLoading)
       : getSentMessages(userToken, setMessages, setIsLoading);
-      wait(2000).then(() => setIsLoading(false));
+    wait(2000).then(() => setIsLoading(false));
   }, []);
 
   return (
-    <View style={{ backgroundColor: "white", paddingBottom: 40 }}>
+    <SafeAreaView style={{ backgroundColor: themes.background, flex: 1 }}>
       <FlatList
         data={messages}
         renderItem={({ item }) => <Message data={item} parent={parent} />}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        style={{ minHeight: "100%" }}
         refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={onRefresh} tintColor={"clear"}/>
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={onRefresh}
+            tintColor={"clear"}
+          />
         }
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

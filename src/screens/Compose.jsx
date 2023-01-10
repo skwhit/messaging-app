@@ -1,3 +1,4 @@
+import { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,28 +7,55 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Alert
+  Alert,
 } from "react-native";
-import { useContext, useEffect, useState } from "react";
+
 import { AuthContext } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import { createMessage } from "../services/requests";
-import { ScreenHeader } from "../components";
+
+import { ScreenHeader, SafeAreaWrapper } from "../components";
 import { sendIcon } from "../../assets";
 
 const Compose = ({ route }) => {
-  const { userToken } = useContext(AuthContext);
   const { to } = route.params;
+  const { userToken } = useContext(AuthContext);
+  const { themes } = useTheme();
+
   const [title, setTitle] = useState("");
-  const [recipient, setRecipient] = useState(to.length ? to : "");
+  const [recipient, setRecipient] = useState(to);
   const [body, setBody] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setRecipient(route.params.to);
+  }, [route]);
+
+  const handleSend = () => {
+    recipient === ""
+      ? alert("Please input a recipient.")
+      : title === ""
+      ? alert("Please input a subject.")
+      : body === ""
+      ? alert("Please input a message.")
+      : Alert.alert("Are you sure you want to send this message?", "", [
+          {
+            text: "Yes",
+            onPress: () => {
+              createMessage(userToken, title, body, recipient);
+            },
+          },
+          {
+            text: "No",
+          },
+        ]);
+  };
 
   return (
-    <>
+    <SafeAreaWrapper>
       <ScreenHeader title={"Compose"} />
-      <ScrollView style={styles.container}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>To: </Text>
+      <View style={[styles.container, { backgroundColor: themes.background }]}>
+        <View style={[styles.inputContainer, { borderColor: themes.border }]}>
+          <Text style={[styles.text, { color: themes.text }]}>To: </Text>
           <TextInput
             name="recipient"
             onChangeText={(text) => setRecipient(text)}
@@ -35,8 +63,8 @@ const Compose = ({ route }) => {
             style={styles.input}
           />
         </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>Subject: </Text>
+        <View style={[styles.inputContainer, { borderColor: themes.border }]}>
+          <Text style={[styles.text, { color: themes.text }]}>Subject: </Text>
           <TextInput
             name="title"
             onChangeText={(text) => setTitle(text)}
@@ -50,40 +78,23 @@ const Compose = ({ route }) => {
             multiline={true}
             onChangeText={(text) => setBody(text)}
             value={body}
-            style={styles.messageInput}
+            style={[styles.messageInput, { borderColor: themes.border }]}
             placeholder="Message"
+            placeholderTextColor={themes.placeholder}
           />
         </ScrollView>
-        <TouchableOpacity
-          onPress={() => {
-            Alert.alert("Are you sure you want to send this message?", "", [
-              {
-                text: "Yes",
-                onPress: () => {
-                  createMessage(userToken, title, body, recipient)
-                },
-              },
-              {
-                text: "No",
-              },
-            ]);
-          }}
-          style={styles.sendButton}
-        >
-          <Text style={styles.sendText}>Send</Text>
+        <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
+          <Text style={[styles.sendText, { color: themes.text }]}>Send</Text>
           <Image style={styles.sendImage} source={sendIcon} />
         </TouchableOpacity>
-      </ScrollView>
-    </>
+      </View>
+    </SafeAreaWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
-    maxHeight: "100%",
-    paddingBottom: 40,
   },
   inputContainer: {
     flexDirection: "row",
@@ -104,15 +115,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 8,
     borderTopWidth: 1,
-    maxHeight: 330,
+    maxHeight: 300,
   },
   sendButton: {
     alignSelf: "flex-end",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    top: -8,
-    right: 10,
     width: "20%",
     height: 60,
     borderRadius: 10,

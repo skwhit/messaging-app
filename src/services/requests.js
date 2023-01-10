@@ -37,7 +37,7 @@ export function getSentMessages(token, setMessages, setIsLoading) {
     });
 }
 
-export function createMessage(token, title, body, receiver) {
+export function createMessage(token, title, body, receiver, navigation) {
   axios
     .post(
       `${BASE_URL}/messages/`,
@@ -58,7 +58,7 @@ export function createMessage(token, title, body, receiver) {
     })
     .catch((e) => {
       console.log(e);
-      alert("Recipient not found or missing informarion. Please try again.");
+      alert("Recipient not found. Please try again.");
     });
 }
 

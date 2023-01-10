@@ -1,3 +1,4 @@
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,77 +7,104 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+
 import { AuthContext } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
+
 import { getMessageDetail, deleteMessage } from "../services/requests";
 import { formatTimestamp } from "../utils/functions";
+
+import { SafeAreaWrapper, Loading } from "../components";
 
 const Details = ({ route, navigation }) => {
   const { id, parent } = route.params;
   const { userToken } = useContext(AuthContext);
+  const { themes } = useTheme();
+
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     getMessageDetail(userToken, id, setDetails, setIsLoading);
-  }, []);
+  }, [id]);
 
   const { body, receiver, sender, sent, title } = details;
   const inbox = parent == "Inbox" ? true : false;
 
+  const handleDelete = () => {
+    Alert.alert("Are you sure you want to delete this message?", "", [
+      {
+        text: "Yes",
+        onPress: () => {
+          deleteMessage(userToken, id, navigation, parent);
+        },
+      },
+      {
+        text: "No",
+      },
+    ]);
+  };
+
   return (
-    <ScrollView style={{ backgroundColor: "white" }}>
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <View style={styles.topHeader}>
-            <Text style={styles.text}>
-              {inbox ? `From: ${sender}` : `To: ${receiver}`}
-            </Text>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={styles.closeButton}
+    <SafeAreaWrapper>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ScrollView style={{ backgroundColor: themes.background }}>
+          <View style={styles.container}>
+            <View
+              style={[styles.headerContainer, { borderColor: themes.border }]}
             >
-              <Text style={styles.closeButtonText}>X</Text>
-            </TouchableOpacity>
+              <View style={styles.topHeader}>
+                <Text style={[styles.text, { color: themes.text }]}>
+                  {inbox ? `From: ${sender}` : `To: ${receiver}`}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => navigation.goBack()}
+                  style={styles.closeButton}
+                >
+                  <Text
+                    style={[styles.closeButtonText, { color: themes.text }]}
+                  >
+                    X
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <Text
+                style={[styles.text, { color: themes.text }]}
+              >{`Date: ${formatTimestamp(sent)}`}</Text>
+              <Text
+                style={[styles.text, { color: themes.text }]}
+              >{`Subject: ${title}`}</Text>
+            </View>
+            <Text
+              style={[styles.text, { color: themes.text }]}
+            >{`${body}`}</Text>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Compose", {
+                    to: inbox ? sender : receiver,
+                  })
+                }
+                style={styles.replyButton}
+              >
+                <Text style={styles.buttonText}>
+                  {inbox ? "Reply" : "Message Again"}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleDelete}
+                style={styles.deleteButton}
+              >
+                <Text style={styles.buttonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <Text style={styles.text}>{`Date: ${formatTimestamp(sent)}`}</Text>
-          <Text style={styles.text}>{`Subject: ${title}`}</Text>
-        </View>
-        <Text style={styles.message}>{`${body}`}</Text>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("Compose", {
-                to: inbox ? sender : receiver,
-              })
-            }
-            style={styles.replyButton}
-          >
-            <Text style={styles.buttonText}>
-              {inbox ? `Reply` : `Message Again`}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              Alert.alert("Are you sure you want to delete this message?", "", [
-                {
-                  text: "Yes",
-                  onPress: () => {
-                    deleteMessage(userToken, id, navigation, parent);
-                  },
-                },
-                {
-                  text: "No",
-                },
-              ]);
-            }}
-            style={styles.deleteButton}
-          >
-            <Text style={styles.buttonText}>Delete</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+        </ScrollView>
+      )}
+    </SafeAreaWrapper>
   );
 };
 
@@ -89,14 +117,13 @@ const styles = StyleSheet.create({
   closeButton: {
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "#F5F5F4",
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
   },
   closeButtonText: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   headerContainer: {
     borderBottomWidth: 1,
@@ -134,7 +161,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   deleteButton: {
-    backgroundColor: "grey",
+    backgroundColor: "#808080",
     borderRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 10,
@@ -143,7 +170,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    color: "white",
+    color: "#FFFFFF",
   },
 });
 

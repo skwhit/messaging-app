@@ -1,27 +1,38 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { formatTimestamp } from "../utils/functions";
-import { formatMessage } from "../utils/functions";
 import { useNavigation } from "@react-navigation/native";
 
+import { useTheme } from "../context/ThemeContext";
+
+import { formatTimestamp } from "../utils/functions";
+import { formatMessage } from "../utils/functions";
+
 const Message = ({ data, parent }) => {
-  const { body, id, receiver, sender, sent, title } = data;
+  const { body, receiver, sender, sent, title } = data;
+  
   const navigation = useNavigation();
+  const { themes } = useTheme();
 
   const date = formatTimestamp(sent);
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.push("Details", { id: id, parent: parent })}
-      style={styles.container}
+      onPress={() =>
+        navigation.navigate("Details", { id: data.id, parent: parent })
+      }
+      style={[styles.container, { borderColor: themes.border }]}
     >
       <View style={styles.headerContainer}>
-        <Text style={styles.header}>
+        <Text style={[styles.header, { color: themes.text }]}>
           {parent === "Inbox" ? `From: ${sender}` : `To: ${receiver}`}
         </Text>
-        <Text>{date}</Text>
+        <Text style={{ color: themes.text }}>{date}</Text>
       </View>
-      <Text style={styles.text}>Subject: {title}</Text>
-      <Text style={styles.text}>{formatMessage(body)}</Text>
+      <Text style={[styles.text, { color: themes.text }]}>
+        Subject: {title}
+      </Text>
+      <Text style={[styles.text, { color: themes.text }]}>
+        {formatMessage(body)}
+      </Text>
     </TouchableOpacity>
   );
 };

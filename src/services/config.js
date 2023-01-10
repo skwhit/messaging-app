@@ -1,1 +1,1 @@
-export const BASE_URL = "https://interview.bixly.com"
+export const BASE_URL = "https://interview.bixly.com";

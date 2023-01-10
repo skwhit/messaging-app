@@ -3,7 +3,7 @@ import { LoginScreen } from "../screens";
 
 const AuthStack = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <LoginScreen />
     </SafeAreaView>
   );

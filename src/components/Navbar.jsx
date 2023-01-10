@@ -30,7 +30,7 @@ const Navbar = () => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Compose", {to: ""});
+          navigation.navigate("Compose", { to: "" });
         }}
         style={styles.linkContainer}
       >
@@ -54,20 +54,19 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 2,
     flexDirection: "row",
-    position: "fixed",
-    backgroundColor: "black"
+    backgroundColor: "black",
   },
   linkContainer: {
     width: "25%",
     borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 5
+    paddingTop: 5,
   },
   text: {
-    color: 'white'
+    color: "#FFFFFF",
   },
-  navIcon: {width: '40%', height: 40, resizeMode: 'stretch'},
+  navIcon: { width: "40%", height: 40, resizeMode: "stretch" },
 });
 
 export default Navbar;
