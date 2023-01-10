@@ -1,9 +1,9 @@
 import { View, Text, Keyboard } from "react-native";
+
 import { useTheme } from "../context/ThemeContext";
 
 const ScreenHeader = ({ title }) => {
-
- const { themes } = useTheme();
+  const { themes } = useTheme();
 
   return (
     <View
@@ -14,7 +14,9 @@ const ScreenHeader = ({ title }) => {
         paddingBottom: 5,
       }}
     >
-      <Text style={{ fontSize: 20, fontWeight: "bold", color: themes.text }}>{title}</Text>
+      <Text style={{ fontSize: 20, fontWeight: "bold", color: themes.text }}>
+        {title}
+      </Text>
     </View>
   );
 };

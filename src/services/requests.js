@@ -37,7 +37,7 @@ export function getSentMessages(token, setMessages, setIsLoading) {
     });
 }
 
-export function createMessage(token, title, body, receiver) {
+export function createMessage(token, title, body, receiver, navigation) {
   axios
     .post(
       `${BASE_URL}/messages/`,

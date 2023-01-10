@@ -1,53 +1,68 @@
+import { useContext, useState } from "react";
 import {
-  SafeAreaView,
   View,
   Text,
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Platform
 } from "react-native";
-import { useContext, useState } from "react";
+import { SafeAreaWrapper } from "../components";
+
 import { AuthContext } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 const LoginScreen = () => {
   const { login } = useContext(AuthContext);
+  const { themes } = useTheme();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   return (
-    <View style={styles.container}>
-      <View style={styles.login}>
-        <View style={styles.itemContainer}>
-          <Text style={styles.title}>Welcome</Text>
-          <Text style={styles.text}>Please login below</Text>
+    <SafeAreaWrapper>
+      <View style={[styles.container, { backgroundColor: themes.background }]}>
+        <View style={styles.login}>
+          <View style={styles.itemContainer}>
+            <Text style={[styles.title, { color: themes.text }]}>Welcome</Text>
+            <Text style={[styles.text, { color: themes.text }]}>
+              Please login below
+            </Text>
+          </View>
+          <View style={styles.itemContainer}>
+            <Text style={[styles.text, { color: themes.text }]}>Username</Text>
+            <TextInput
+              name="username"
+              onChangeText={(text) => setUsername(text)}
+              value={username}
+              style={[
+                styles.input,
+                { borderColor: themes.border, color: themes.text },
+              ]}
+            />
+          </View>
+          <View style={styles.itemContainer}>
+            <Text style={[styles.text, { color: themes.text }]}>Password</Text>
+            <TextInput
+              name="password"
+              onChangeText={(text) => setPassword(text)}
+              value={password}
+              secureTextEntry={true}
+              style={[
+                styles.input,
+                { borderColor: themes.border, color: themes.text },
+              ]}
+            />
+          </View>
+          <TouchableOpacity
+            onPress={() => login(username, password)}
+            style={styles.button}
+          >
+            <Text style={{ color: "#FFFFFF" }}>Sign in</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.itemContainer}>
-          <Text style={styles.text}>Username</Text>
-          <TextInput
-            name="username"
-            onChangeText={(text) => setUsername(text)}
-            value={username}
-            style={styles.input}
-          />
-        </View>
-        <View style={styles.itemContainer}>
-          <Text style={styles.text}>Password</Text>
-          <TextInput
-            name="password"
-            onChangeText={(text) => setPassword(text)}
-            value={password}
-            secureTextEntry={true}
-            style={styles.input}
-          />
-        </View>
-        <TouchableOpacity
-          onPress={() => login(username, password)}
-          style={styles.button}
-        >
-          <Text style={{ color: "#FFFFFF" }}>Sign in</Text>
-        </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaWrapper>
   );
 };
 
@@ -56,9 +71,10 @@ const styles = StyleSheet.create({
     height: 800,
     width: "100%",
     alignItems: "center",
+    height: "100%",
   },
   login: {
-    height: "50%",
+    height: Platform.OS === "android" ? "65%" : "50%",
     width: "90%",
     justifyContent: "space-around",
     alignItems: "center",
@@ -66,9 +82,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-  },
-  text: {
-    color: "#000000",
   },
   itemContainer: {
     width: "100%",
@@ -84,7 +97,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   button: {
-    backgroundColor: "#000000",
+    backgroundColor: "grey",
     width: "60%",
     alignItems: "center",
     justifyContent: "center",

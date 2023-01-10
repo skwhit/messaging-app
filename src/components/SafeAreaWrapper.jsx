@@ -1,4 +1,5 @@
 import { SafeAreaView, StyleSheet, StatusBar, Platform } from "react-native";
+
 import { useTheme } from "../context/ThemeContext";
 
 const SafeAreaWrapper = ({ children }) => {

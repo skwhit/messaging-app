@@ -1,30 +1,37 @@
 import React, { useContext } from "react";
-import { View, SafeAreaView } from "react-native";
+import { SafeAreaView, View, Platform } from "react-native";
+import { StatusBar } from "expo-status-bar";
+
 import { AuthContext } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
+
 
 import AuthStack from "./AuthStack";
 import AppStack from "./AppStack";
 import { Loading } from "../components";
 
-//Need to install depencies for the following imports
 import { NavigationContainer } from "@react-navigation/native";
 
 const AppNav = () => {
   const { isLoading, userToken } = useContext(AuthContext);
+  const { themes } = useTheme();
 
   if (isLoading) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <Loading/>
+        <Loading />
       </SafeAreaView>
     );
   }
 
   return (
-    <NavigationContainer>
-      {userToken !== null ? <AppStack /> : <AuthStack />}
-      {/* <View style={{ backgroundColor: "black", width: "100%", height: 35 }}></View> */}
-    </NavigationContainer>
+    <>
+      <StatusBar backgroundColor={themes.background} style={themes.statusBar}/>
+      {Platform.OS === "ios" ? <View style={{ backgroundColor: themes.background, height: 50, zIndex: 2, }}></View>: <></>}
+      <NavigationContainer>
+        {userToken !== null ? <AppStack /> : <AuthStack />}
+      </NavigationContainer>
+    </>
   );
 };
 

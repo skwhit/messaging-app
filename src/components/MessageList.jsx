@@ -1,14 +1,16 @@
-import { View, FlatList, RefreshControl, SafeAreaView } from "react-native";
 import { useCallback, useContext, useState, useEffect } from "react";
-import Message from "./Message";
-import Loading from "./Loading";
+import { FlatList, RefreshControl, SafeAreaView } from "react-native";
+
 import { AuthContext } from "../context/AuthContext";
-import { getInboxMessages, getSentMessages } from "../services/requests";
 import { useTheme } from "../context/ThemeContext";
+import { getInboxMessages, getSentMessages } from "../services/requests";
+
+import Message from "./Message";
 
 const MessageList = ({ parent }) => {
   const { userToken } = useContext(AuthContext);
   const { themes } = useTheme();
+  
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 

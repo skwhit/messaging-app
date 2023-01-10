@@ -1,5 +1,6 @@
-import { View, Text, Image } from "react-native";
 import React from "react";
+import { Image } from "react-native";
+
 import { inboxIcon, sentIcon, composeIcon, accountIcon } from "../../assets";
 
 const NavIcon = ({ type }) => {

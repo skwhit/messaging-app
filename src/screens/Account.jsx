@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   View,
   Text,
@@ -6,16 +7,17 @@ import {
   Switch,
   TouchableOpacity,
 } from "react-native";
-import { SafeAreaWrapper } from "../components";
-import { accountIcon } from "../../assets";
-import { useContext, useState } from "react";
 
 import { useTheme } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
 
+import { SafeAreaWrapper } from "../components";
+import { accountIcon } from "../../assets";
+
 const Account = () => {
   const { themes, darkmode, setDarkmode } = useTheme();
   const { logout } = useContext(AuthContext);
+  
   const toggleSwitch = () => setDarkmode((previousState) => !previousState);
 
   return (

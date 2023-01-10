@@ -1,3 +1,4 @@
+import { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,21 +9,22 @@ import {
   Image,
   Alert,
 } from "react-native";
-import { useContext, useEffect, useState } from "react";
+
 import { AuthContext } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { createMessage } from "../services/requests";
+
 import { ScreenHeader, SafeAreaWrapper } from "../components";
 import { sendIcon } from "../../assets";
 
 const Compose = ({ route }) => {
+  const { to } = route.params;
   const { userToken } = useContext(AuthContext);
   const { themes } = useTheme();
-  const { to } = route.params;
+
   const [title, setTitle] = useState("");
   const [recipient, setRecipient] = useState(to);
   const [body, setBody] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setRecipient(route.params.to);

@@ -1,26 +1,16 @@
-import {
-  SafeAreaView,
-  Image,
-  Platform,
-  StyleSheet,
-  StatusBar,
-  KeyboardAvoidingView,
-  ScrollView,
-} from "react-native";
+import { Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import { Inbox, Compose, Sent, Details, Account } from "../screens";
 import { NavIcon } from "../components";
-import { inboxIcon, sentIcon, composeIcon, signoutIcon } from "../../assets";
 
-const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const AppStack = () => {
   return (
     <Tab.Navigator
       initialRouteName="Inbox"
-      screenOptions={({ route }) => ({
+      screenOptions={() => ({
         headerShown: false,
         tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "gray",
@@ -50,7 +40,7 @@ const AppStack = () => {
       <Tab.Screen
         name="Compose"
         component={Compose}
-        initialParams={{to: ""}}
+        initialParams={{ to: "" }}
         options={{
           tabBarIcon: () => <NavIcon type={"Compose"} />,
         }}
