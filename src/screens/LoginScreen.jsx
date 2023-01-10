@@ -10,15 +10,15 @@ import {
 import { SafeAreaWrapper } from "../components";
 
 import { AuthContext } from "../context/AuthContext";
-import { useTheme } from "../context/ThemeContext";
 
+//Login screen to authenticate user through username and password
 const LoginScreen = () => {
   const { login } = useContext(AuthContext);
-  const { themes } = useTheme();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  //Displays a welcome message with user input fields
   return (
     <>
       <SafeAreaWrapper>

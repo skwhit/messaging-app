@@ -4,8 +4,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Inbox, Compose, Sent, Details, Account } from "../screens";
 import { NavIcon } from "../components";
 
+//Initialize tab navigator
 const Tab = createBottomTabNavigator();
 
+//Navigation for the application using a tab navigator at bottom of screen.
 const AppStack = () => {
   return (
     <Tab.Navigator

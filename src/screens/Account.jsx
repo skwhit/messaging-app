@@ -13,13 +13,11 @@ import { AuthContext } from "../context/AuthContext";
 
 import { SafeAreaWrapper } from "../components";
 import { accountIcon } from "../../assets";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
+//user account screen where user can change settings and/or signout
 const Account = () => {
-  const { themes, darkmode, setDarkmode } = useTheme();
+  const { themes, darkmode, toggleDarkmode } = useTheme();
   const { logout } = useContext(AuthContext);
-
-  const toggleSwitch = () => setDarkmode((previousState) => !previousState);
 
   return (
     <SafeAreaWrapper>
@@ -38,11 +36,12 @@ const Account = () => {
               <Text style={[styles.text, { color: themes.text }]}>
                 Dark Mode
               </Text>
+              {/* Switch will toggle darkmode on and off for entire app */}
               <Switch
                 trackColor={{ false: "#767577", true: "lightgrey" }}
                 thumbColor={darkmode ? "white" : "lightgrey"}
                 ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
+                onValueChange={toggleDarkmode}
                 value={darkmode}
               />
             </View>

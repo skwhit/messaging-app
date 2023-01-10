@@ -9,6 +9,7 @@ import {
   Image,
   Alert,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { AuthContext } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
@@ -17,31 +18,37 @@ import { createMessage } from "../services/requests";
 import { ScreenHeader, SafeAreaWrapper } from "../components";
 import { sendIcon } from "../../assets";
 
+//Compose screen for sending out a message
 const Compose = ({ route }) => {
   const { to } = route.params;
   const { userToken } = useContext(AuthContext);
   const { themes } = useTheme();
+  const navigation = useNavigation();
 
   const [title, setTitle] = useState("");
   const [recipient, setRecipient] = useState(to);
   const [body, setBody] = useState("");
 
+  //To: recipient is set to route parameters on initial load and when route is changed.
   useEffect(() => {
     setRecipient(route.params.to);
   }, [route]);
 
+  //Function to handle edge cases and confirmation when user hits send message button.
   const handleSend = () => {
+    //User alerted if they leave recipient, subject, or message blank.
     recipient === ""
       ? alert("Please input a recipient.")
       : title === ""
       ? alert("Please input a subject.")
       : body === ""
       ? alert("Please input a message.")
+      //If fields are filled in. User is asked to confirm message to be sent
       : Alert.alert("Are you sure you want to send this message?", "", [
           {
             text: "Yes",
             onPress: () => {
-              createMessage(userToken, title, body, recipient);
+              createMessage(userToken, title, body, recipient, navigation);
             },
           },
           {
@@ -50,6 +57,7 @@ const Compose = ({ route }) => {
         ]);
   };
 
+  //Displays input fields and send message button
   return (
     <SafeAreaWrapper>
       <ScreenHeader title={"Compose"} />

@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { SafeAreaView, View, Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 import { AuthContext } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
@@ -13,10 +12,12 @@ import { Loading } from "../components";
 
 import { NavigationContainer } from "@react-navigation/native";
 
+//Used to navigate user to various parts of the application
 const AppNav = () => {
   const { isLoading, userToken } = useContext(AuthContext);
   const { themes } = useTheme();
 
+  //Will display loading icon when user is waiting to be authenticated.
   if (isLoading) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -25,6 +26,7 @@ const AppNav = () => {
     );
   }
 
+  //Displays status bar and will either navigate user to login or the rest of the app.
   return (
     <>
       <StatusBar backgroundColor={themes.background} style={themes.statusBar}/>

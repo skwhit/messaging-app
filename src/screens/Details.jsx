@@ -16,7 +16,9 @@ import { formatTimestamp } from "../utils/functions";
 
 import { SafeAreaWrapper, Loading } from "../components";
 
+//Details component for displaying message detail when user clicks a message.
 const Details = ({ route, navigation }) => {
+  //takes in id params from inbox or sent messages
   const { id, parent } = route.params;
   const { userToken } = useContext(AuthContext);
   const { themes } = useTheme();
@@ -24,6 +26,7 @@ const Details = ({ route, navigation }) => {
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+  //Message detail will be requested on initial load and each time id changes.
   useEffect(() => {
     setIsLoading(true);
     getMessageDetail(userToken, id, setDetails, setIsLoading);
@@ -32,11 +35,13 @@ const Details = ({ route, navigation }) => {
   const { body, receiver, sender, sent, title } = details;
   const inbox = parent == "Inbox" ? true : false;
 
+  //Confirmation for when user presses delete button
   const handleDelete = () => {
     Alert.alert("Are you sure you want to delete this message?", "", [
       {
         text: "Yes",
         onPress: () => {
+          //If user selects yes, message will be deleted from server.
           deleteMessage(userToken, id, navigation, parent);
         },
       },
@@ -46,6 +51,7 @@ const Details = ({ route, navigation }) => {
     ]);
   };
 
+  //Displays message detail interface
   return (
     <SafeAreaWrapper>
       {isLoading ? (
