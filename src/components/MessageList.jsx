@@ -1,4 +1,4 @@
-import { View, FlatList, RefreshControl } from "react-native";
+import { View, FlatList, RefreshControl, SafeAreaView } from "react-native";
 import { useCallback, useContext, useState, useEffect } from "react";
 import Message from "./Message";
 import Loading from "./Loading";
@@ -29,18 +29,17 @@ const MessageList = ({ parent }) => {
   }, []);
 
   return (
-    <View style={{ backgroundColor: "#FFFFFF", paddingBottom: 40 }}>
+    <SafeAreaView style={{ backgroundColor: "#FFFFFF", flex: 1}}>
       <FlatList
         data={messages}
         renderItem={({ item }) => <Message data={item} parent={parent} />}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        style={{ minHeight: "100%" }}
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={onRefresh} tintColor={"clear"}/>
         }
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

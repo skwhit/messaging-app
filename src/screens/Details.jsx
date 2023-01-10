@@ -10,6 +10,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { getMessageDetail, deleteMessage } from "../services/requests";
 import { formatTimestamp } from "../utils/functions";
+import { SafeAreaWrapper } from "../components";
 
 const Details = ({ route, navigation }) => {
   const { id, parent } = route.params;
@@ -25,6 +26,7 @@ const Details = ({ route, navigation }) => {
   const inbox = parent == "Inbox" ? true : false;
 
   return (
+    <SafeAreaWrapper>
     <ScrollView style={{ backgroundColor: "#FFFFFF" }}>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -77,6 +79,7 @@ const Details = ({ route, navigation }) => {
         </View>
       </View>
     </ScrollView>
+    </SafeAreaWrapper>
   );
 };
 

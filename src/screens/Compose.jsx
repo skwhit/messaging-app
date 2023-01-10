@@ -11,21 +11,22 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { createMessage } from "../services/requests";
-import { ScreenHeader } from "../components";
+import { ScreenHeader, SafeAreaWrapper } from "../components";
 import { sendIcon } from "../../assets";
 
 const Compose = ({ route }) => {
   const { userToken } = useContext(AuthContext);
-  const { to } = route.params;
+  // const { to } = route.params;
   const [title, setTitle] = useState("");
-  const [recipient, setRecipient] = useState(to.length ? to : "");
+  // const [recipient, setRecipient] = useState(to.length ? to : "");
+  const [recipient, setRecipient] = useState("");
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <>
+    <SafeAreaWrapper>
       <ScreenHeader title={"Compose"} />
-      <ScrollView style={styles.container}>
+      {/* <ScrollView style={styles.container}> */}
         <View style={styles.inputContainer}>
           <Text style={styles.text}>To: </Text>
           <TextInput
@@ -73,8 +74,8 @@ const Compose = ({ route }) => {
           <Text style={styles.sendText}>Send</Text>
           <Image style={styles.sendImage} source={sendIcon} />
         </TouchableOpacity>
-      </ScrollView>
-    </>
+      {/* </ScrollView> */}
+    </SafeAreaWrapper>
   );
 };
 
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 8,
     borderTopWidth: 1,
-    maxHeight: 330,
+    maxHeight: 300,
   },
   sendButton: {
     alignSelf: "flex-end",
