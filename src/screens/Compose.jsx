@@ -10,12 +10,14 @@ import {
 } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import { createMessage } from "../services/requests";
 import { ScreenHeader, SafeAreaWrapper } from "../components";
 import { sendIcon } from "../../assets";
 
 const Compose = ({ route }) => {
   const { userToken } = useContext(AuthContext);
+  const { themes } = useTheme();
   const { to } = route.params;
   const [title, setTitle] = useState("");
   const [recipient, setRecipient] = useState(to);
@@ -27,62 +29,63 @@ const Compose = ({ route }) => {
   }, [route]);
 
   const handleSend = () => {
-      recipient === ""
-        ? alert("Please input a recipient.")
-        : title === ""
-        ? alert("Please input a subject.")
-        : body === ""
-        ? alert("Please input a message.")
-        : Alert.alert("Are you sure you want to send this message?", "", [
-            {
-              text: "Yes",
-              onPress: () => {
-                createMessage(userToken, title, body, recipient);
-              },
+    recipient === ""
+      ? alert("Please input a recipient.")
+      : title === ""
+      ? alert("Please input a subject.")
+      : body === ""
+      ? alert("Please input a message.")
+      : Alert.alert("Are you sure you want to send this message?", "", [
+          {
+            text: "Yes",
+            onPress: () => {
+              createMessage(userToken, title, body, recipient);
             },
-            {
-              text: "No",
-            },
-          ]);
+          },
+          {
+            text: "No",
+          },
+        ]);
   };
 
   return (
     <SafeAreaWrapper>
       <ScreenHeader title={"Compose"} />
-      {/* <ScrollView style={styles.container}> */}
-      <View style={styles.inputContainer}>
-        <Text style={styles.text}>To: </Text>
-        <TextInput
-          name="recipient"
-          onChangeText={(text) => setRecipient(text)}
-          value={recipient}
-          style={styles.input}
-        />
+      <View style={[styles.container, { backgroundColor: themes.background }]}>
+        <View style={[styles.inputContainer, { borderColor: themes.border }]}>
+          <Text style={[styles.text, { color: themes.text }]}>To: </Text>
+          <TextInput
+            name="recipient"
+            onChangeText={(text) => setRecipient(text)}
+            value={recipient}
+            style={styles.input}
+          />
+        </View>
+        <View style={[styles.inputContainer, { borderColor: themes.border }]}>
+          <Text style={[styles.text, { color: themes.text }]}>Subject: </Text>
+          <TextInput
+            name="title"
+            onChangeText={(text) => setTitle(text)}
+            value={title}
+            style={styles.input}
+          />
+        </View>
+        <ScrollView>
+          <TextInput
+            name="body"
+            multiline={true}
+            onChangeText={(text) => setBody(text)}
+            value={body}
+            style={[styles.messageInput, { borderColor: themes.border }]}
+            placeholder="Message"
+            placeholderTextColor={themes.placeholder}
+          />
+        </ScrollView>
+        <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
+          <Text style={[styles.sendText, { color: themes.text }]}>Send</Text>
+          <Image style={styles.sendImage} source={sendIcon} />
+        </TouchableOpacity>
       </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.text}>Subject: </Text>
-        <TextInput
-          name="title"
-          onChangeText={(text) => setTitle(text)}
-          value={title}
-          style={styles.input}
-        />
-      </View>
-      <ScrollView>
-        <TextInput
-          name="body"
-          multiline={true}
-          onChangeText={(text) => setBody(text)}
-          value={body}
-          style={styles.messageInput}
-          placeholder="Message"
-        />
-      </ScrollView>
-      <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
-        <Text style={styles.sendText}>Send</Text>
-        <Image style={styles.sendImage} source={sendIcon} />
-      </TouchableOpacity>
-      {/* </ScrollView> */}
     </SafeAreaWrapper>
   );
 };
@@ -90,9 +93,6 @@ const Compose = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
-    maxHeight: "100%",
-    paddingBottom: 40,
   },
   inputContainer: {
     flexDirection: "row",

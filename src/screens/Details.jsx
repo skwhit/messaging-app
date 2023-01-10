@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import { getMessageDetail, deleteMessage } from "../services/requests";
 import { formatTimestamp } from "../utils/functions";
 import { SafeAreaWrapper, Loading } from "../components";
@@ -15,6 +16,7 @@ import { SafeAreaWrapper, Loading } from "../components";
 const Details = ({ route, navigation }) => {
   const { id, parent } = route.params;
   const { userToken } = useContext(AuthContext);
+  const { themes } = useTheme();
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -45,26 +47,26 @@ const Details = ({ route, navigation }) => {
       {isLoading ? (
         <Loading />
       ) : (
-        <ScrollView style={{ backgroundColor: "#FFFFFF" }}>
+        <ScrollView style={{ backgroundColor: themes.background }}>
           <View style={styles.container}>
-            <View style={styles.headerContainer}>
+            <View style={[styles.headerContainer,{borderColor: themes.border}]}>
               <View style={styles.topHeader}>
-                <Text style={styles.text}>
+                <Text style={[styles.text, {color: themes.text}]}>
                   {inbox ? `From: ${sender}` : `To: ${receiver}`}
                 </Text>
                 <TouchableOpacity
                   onPress={() => navigation.goBack()}
                   style={styles.closeButton}
                 >
-                  <Text style={styles.closeButtonText}>X</Text>
+                  <Text style={[styles.closeButtonText, {color: themes.text}]}>X</Text>
                 </TouchableOpacity>
               </View>
-              <Text style={styles.text}>{`Date: ${formatTimestamp(
+              <Text style={[styles.text, {color: themes.text}]}>{`Date: ${formatTimestamp(
                 sent
               )}`}</Text>
-              <Text style={styles.text}>{`Subject: ${title}`}</Text>
+              <Text style={[styles.text, {color: themes.text}]}>{`Subject: ${title}`}</Text>
             </View>
-            <Text style={styles.message}>{`${body}`}</Text>
+            <Text style={[styles.text, {color: themes.text}]}>{`${body}`}</Text>
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 onPress={() =>
