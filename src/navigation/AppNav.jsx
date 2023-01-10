@@ -5,7 +5,6 @@ import { StatusBar } from "expo-status-bar";
 import { AuthContext } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 
-
 import AuthStack from "./AuthStack";
 import AppStack from "./AppStack";
 import { Loading } from "../components";
@@ -29,9 +28,15 @@ const AppNav = () => {
   //Displays status bar and will either navigate user to login or the rest of the app.
   return (
     <>
-      <StatusBar backgroundColor={themes.background} style={themes.statusBar}/>
+      <StatusBar backgroundColor={themes.background} style={themes.statusBar} />
       {/* Have to create a view and get status bar height to change background color in ios */}
-      {Platform.OS === "ios" ? <View style={{ backgroundColor: themes.background, height: 50, zIndex: 2, }}></View>: <></>}
+      {Platform.OS === "ios" ? (
+        <View
+          style={{ backgroundColor: themes.background, height: 50, zIndex: 2 }}
+        ></View>
+      ) : (
+        <></>
+      )}
       <NavigationContainer>
         {userToken !== null ? <AppStack /> : <AuthStack />}
       </NavigationContainer>

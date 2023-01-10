@@ -10,7 +10,7 @@ import Message from "./Message";
 const MessageList = ({ parent }) => {
   const { userToken } = useContext(AuthContext);
   const { themes } = useTheme();
-  
+
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 

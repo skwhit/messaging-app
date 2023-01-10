@@ -20,7 +20,7 @@ const NavIcon = ({ type }) => {
       icon = accountIcon;
       break;
   }
-  
+
   //Image component jsx for icon
   return (
     <Image

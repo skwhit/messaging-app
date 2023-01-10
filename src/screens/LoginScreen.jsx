@@ -22,42 +22,29 @@ const LoginScreen = () => {
   return (
     <>
       <SafeAreaWrapper>
-        <View
-          style={styles.container}
-        >
+        <View style={styles.container}>
           <View style={styles.login}>
             <View style={styles.itemContainer}>
-              <Text style={styles.title}>
-                Welcome
-              </Text>
-              <Text style={styles.text}>
-                Please login below
-              </Text>
+              <Text style={styles.title}>Welcome</Text>
+              <Text style={styles.text}>Please login below</Text>
             </View>
             <View style={styles.itemContainer}>
-              <Text style={styles.text}>
-                Username
-              </Text>
+              <Text style={styles.text}>Username</Text>
               <TextInput
                 name="username"
                 onChangeText={(text) => setUsername(text)}
                 value={username}
-                style={
-                  styles.input
-                }
+                style={styles.input}
               />
             </View>
             <View style={styles.itemContainer}>
-              <Text style={styles.text}>
-                Password
-              </Text>
+              <Text style={styles.text}>Password</Text>
               <TextInput
                 name="password"
                 onChangeText={(text) => setPassword(text)}
                 value={password}
                 secureTextEntry={true}
-                style={
-                  styles.input}
+                style={styles.input}
               />
             </View>
             <TouchableOpacity
@@ -69,7 +56,6 @@ const LoginScreen = () => {
           </View>
         </View>
       </SafeAreaWrapper>
-      
     </>
   );
 };

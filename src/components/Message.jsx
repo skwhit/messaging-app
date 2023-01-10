@@ -9,7 +9,7 @@ import { formatMessage } from "../utils/functions";
 //Message component used as a template for inbox message and sent message
 const Message = ({ data, parent }) => {
   const { body, receiver, sender, sent, title } = data;
-  
+
   const navigation = useNavigation();
   const { themes } = useTheme();
 
