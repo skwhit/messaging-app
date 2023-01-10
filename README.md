@@ -64,7 +64,7 @@ source code is available at [https://github.com/skwhit/messaging-app/](https://g
     ```
     npm start
     ```
-or
+    or
 
     ```
     npx expo start
