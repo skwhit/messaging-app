@@ -11,7 +11,7 @@ const Message = ({ data, parent }) => {
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.push("Details", { id: id, parent: parent })}
+      onPress={() => navigation.navigate("Details", { "id": data.id, "parent": parent })}
       style={styles.container}
     >
       <View style={styles.headerContainer}>

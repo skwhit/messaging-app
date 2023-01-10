@@ -58,7 +58,7 @@ export function createMessage(token, title, body, receiver) {
     })
     .catch((e) => {
       console.log(e);
-      alert("Recipient not found or missing informarion. Please try again.");
+      alert("Recipient not found. Please try again.");
     });
 }
 

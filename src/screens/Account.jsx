@@ -1,10 +1,10 @@
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native'
 import { SafeAreaWrapper } from "../components";
 
 const Account = () => {
   return (
     <SafeAreaWrapper>
-      <Text>Account</Text>
+      <Text>Your Account</Text>
     </SafeAreaWrapper>
   )
 }

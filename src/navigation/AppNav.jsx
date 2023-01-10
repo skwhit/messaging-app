@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 
 import AuthStack from "./AuthStack";
 import AppStack from "./AppStack";
+import { Loading } from "../components";
 
 //Need to install depencies for the following imports
 import { NavigationContainer } from "@react-navigation/native";
@@ -14,14 +15,7 @@ const AppNav = () => {
   if (isLoading) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        {/* <ActivityIndicator
-          size={"large"}
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        /> */}
+        <Loading/>
       </SafeAreaView>
     );
   }

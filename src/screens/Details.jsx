@@ -10,7 +10,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { getMessageDetail, deleteMessage } from "../services/requests";
 import { formatTimestamp } from "../utils/functions";
-import { SafeAreaWrapper } from "../components";
+import { SafeAreaWrapper, Loading } from "../components";
 
 const Details = ({ route, navigation }) => {
   const { id, parent } = route.params;
@@ -19,66 +19,75 @@ const Details = ({ route, navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     getMessageDetail(userToken, id, setDetails, setIsLoading);
-  }, []);
+  }, [id]);
 
   const { body, receiver, sender, sent, title } = details;
   const inbox = parent == "Inbox" ? true : false;
 
+  const handleDelete = () => {
+    Alert.alert("Are you sure you want to delete this message?", "", [
+      {
+        text: "Yes",
+        onPress: () => {
+          deleteMessage(userToken, id, navigation, parent);
+        },
+      },
+      {
+        text: "No",
+      },
+    ]);
+  };
+
   return (
     <SafeAreaWrapper>
-    <ScrollView style={{ backgroundColor: "#FFFFFF" }}>
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <View style={styles.topHeader}>
-            <Text style={styles.text}>
-              {inbox ? `From: ${sender}` : `To: ${receiver}`}
-            </Text>
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={styles.closeButton}
-            >
-              <Text style={styles.closeButtonText}>X</Text>
-            </TouchableOpacity>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <ScrollView style={{ backgroundColor: "#FFFFFF" }}>
+          <View style={styles.container}>
+            <View style={styles.headerContainer}>
+              <View style={styles.topHeader}>
+                <Text style={styles.text}>
+                  {inbox ? `From: ${sender}` : `To: ${receiver}`}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => navigation.goBack()}
+                  style={styles.closeButton}
+                >
+                  <Text style={styles.closeButtonText}>X</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.text}>{`Date: ${formatTimestamp(
+                sent
+              )}`}</Text>
+              <Text style={styles.text}>{`Subject: ${title}`}</Text>
+            </View>
+            <Text style={styles.message}>{`${body}`}</Text>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("Compose", {
+                    to: inbox ? sender : receiver,
+                  })
+                }
+                style={styles.replyButton}
+              >
+                <Text style={styles.buttonText}>
+                  {inbox ? "Reply" : "Message Again"}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleDelete}
+                style={styles.deleteButton}
+              >
+                <Text style={styles.buttonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <Text style={styles.text}>{`Date: ${formatTimestamp(sent)}`}</Text>
-          <Text style={styles.text}>{`Subject: ${title}`}</Text>
-        </View>
-        <Text style={styles.message}>{`${body}`}</Text>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("Compose", {
-                to: inbox ? sender : receiver,
-              })
-            }
-            style={styles.replyButton}
-          >
-            <Text style={styles.buttonText}>
-              {inbox ? "Reply" : "Message Again"}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              Alert.alert("Are you sure you want to delete this message?", "", [
-                {
-                  text: "Yes",
-                  onPress: () => {
-                    deleteMessage(userToken, id, navigation, parent);
-                  },
-                },
-                {
-                  text: "No",
-                },
-              ]);
-            }}
-            style={styles.deleteButton}
-          >
-            <Text style={styles.buttonText}>Delete</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+        </ScrollView>
+      )}
     </SafeAreaWrapper>
   );
 };
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
   },
   closeButtonText: {
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   headerContainer: {
     borderBottomWidth: 1,

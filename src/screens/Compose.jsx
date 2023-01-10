@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  Alert
+  Alert,
 } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -16,64 +16,72 @@ import { sendIcon } from "../../assets";
 
 const Compose = ({ route }) => {
   const { userToken } = useContext(AuthContext);
-  // const { to } = route.params;
+  const { to } = route.params;
   const [title, setTitle] = useState("");
-  // const [recipient, setRecipient] = useState(to.length ? to : "");
-  const [recipient, setRecipient] = useState("");
+  const [recipient, setRecipient] = useState(to);
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setRecipient(route.params.to);
+  }, [route]);
+
+  const handleSend = () => {
+      recipient === ""
+        ? alert("Please input a recipient.")
+        : title === ""
+        ? alert("Please input a subject.")
+        : body === ""
+        ? alert("Please input a message.")
+        : Alert.alert("Are you sure you want to send this message?", "", [
+            {
+              text: "Yes",
+              onPress: () => {
+                createMessage(userToken, title, body, recipient);
+              },
+            },
+            {
+              text: "No",
+            },
+          ]);
+  };
 
   return (
     <SafeAreaWrapper>
       <ScreenHeader title={"Compose"} />
       {/* <ScrollView style={styles.container}> */}
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>To: </Text>
-          <TextInput
-            name="recipient"
-            onChangeText={(text) => setRecipient(text)}
-            value={recipient}
-            style={styles.input}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.text}>Subject: </Text>
-          <TextInput
-            name="title"
-            onChangeText={(text) => setTitle(text)}
-            value={title}
-            style={styles.input}
-          />
-        </View>
-        <ScrollView>
-          <TextInput
-            name="body"
-            multiline={true}
-            onChangeText={(text) => setBody(text)}
-            value={body}
-            style={styles.messageInput}
-            placeholder="Message"
-          />
-        </ScrollView>
-        <TouchableOpacity
-          onPress={() => {
-            Alert.alert("Are you sure you want to send this message?", "", [
-              {
-                text: "Yes",
-                onPress: () => {
-                  createMessage(userToken, title, body, recipient)
-                },
-              },
-              {
-                text: "No",
-              },
-            ]);
-          }}
-          style={styles.sendButton}
-        >
-          <Text style={styles.sendText}>Send</Text>
-          <Image style={styles.sendImage} source={sendIcon} />
-        </TouchableOpacity>
+      <View style={styles.inputContainer}>
+        <Text style={styles.text}>To: </Text>
+        <TextInput
+          name="recipient"
+          onChangeText={(text) => setRecipient(text)}
+          value={recipient}
+          style={styles.input}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.text}>Subject: </Text>
+        <TextInput
+          name="title"
+          onChangeText={(text) => setTitle(text)}
+          value={title}
+          style={styles.input}
+        />
+      </View>
+      <ScrollView>
+        <TextInput
+          name="body"
+          multiline={true}
+          onChangeText={(text) => setBody(text)}
+          value={body}
+          style={styles.messageInput}
+          placeholder="Message"
+        />
+      </ScrollView>
+      <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
+        <Text style={styles.sendText}>Send</Text>
+        <Image style={styles.sendImage} source={sendIcon} />
+      </TouchableOpacity>
       {/* </ScrollView> */}
     </SafeAreaWrapper>
   );

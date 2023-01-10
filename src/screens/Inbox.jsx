@@ -1,5 +1,4 @@
 import { MessageList, ScreenHeader } from "../components";
-import { SafeAreaView } from "react-native";
 import { SafeAreaWrapper } from "../components";
 
 const Inbox = () => {
